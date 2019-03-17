@@ -48,6 +48,8 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> deleteUser(@PathVariable("id") String id){
         Mono<ResponseEntity<Void>> mono = userRepository.findById(id)
+                // flatMap操作数据
+                // map修改数据
                 .flatMap(user -> userRepository.delete(user).then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK))))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         return mono;
