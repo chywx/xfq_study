@@ -1,5 +1,8 @@
 package com.chendahai.flux.exceptions;
 
+import lombok.Data;
+
+@Data
 public class CheckException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
