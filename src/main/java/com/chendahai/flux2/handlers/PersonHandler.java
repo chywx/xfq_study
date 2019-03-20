@@ -2,6 +2,7 @@ package com.chendahai.flux2.handlers;
 
 import com.chendahai.flux2.bean.Person;
 import com.chendahai.flux2.repository.PersonRepository;
+import com.chendahai.flux2.util.CheckUtil;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -39,6 +40,8 @@ public class PersonHandler {
     public Mono<ServerResponse> createPerson(ServerRequest request){
         Mono<Person> person = request.bodyToMono(Person.class);
         Mono<ServerResponse> mono = person.flatMap(u -> {
+            CheckUtil.checkName(u.getName());
+//            int i = 1/0;
             return ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .body(repository.save(u), Person.class);
